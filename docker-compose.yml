@@ -1,0 +1,55 @@
+# Chatwoot 자체는 이 compose에 포함하지 않는다 (별도 fork 레포에서 별도로 구동).
+# 이 레포의 서비스들이 Chatwoot 컨테이너와 통신해야 하므로,
+# Chatwoot의 docker-compose가 만든 네트워크에 join 하거나
+# 아래 external network 설정을 Chatwoot 쪽 네트워크명에 맞게 바꿀 것.
+#
+#   docker network ls  로 Chatwoot 쪽 네트워크 이름 확인 후
+#   아래 `chatwoot_default`를 실제 이름으로 교체
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - backend-db
+    networks:
+      - default
+      - chatwoot_default
+
+  backend-db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: auth_user
+      POSTGRES_PASSWORD: auth_pass
+      POSTGRES_DB: auth_db
+    volumes:
+      - backend_db_data:/var/lib/postgresql/data
+
+  webhook-bot:
+    build: ./webhook-bot
+    ports:
+      - "8001:8001"
+    env_file:
+      - ./webhook-bot/.env
+    networks:
+      - default
+      - chatwoot_default
+
+volumes:
+  backend_db_data:
+
+networks:
+  chatwoot_default:
+    external: true

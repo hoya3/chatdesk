@@ -2,7 +2,7 @@
 
 방문자 웹사이트의 회원가입/로그인을 처리하고, 로그인 성공 시
 Chatwoot 위젯 `setUser()`에 넘길 HMAC(identifier_hash)까지 함께 발급한다.
-Chatwoot 자체 DB와는 완전히 분리된 별도 PostgreSQL을 쓴다.
+Chatwoot 자체 DB와는 완전히 분리된 SQLite 파일을 쓴다 (별도 DB 컨테이너 불필요).
 
 ## 로컬 실행
 

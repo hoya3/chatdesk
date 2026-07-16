@@ -4,4 +4,5 @@
 **/*.pyc
 **/dist/
 **/.venv/
+**/*.db
 .DS_Store

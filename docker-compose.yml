@@ -22,20 +22,11 @@ services:
       - "8000:8000"
     env_file:
       - ./backend/.env
-    depends_on:
-      - backend-db
+    volumes:
+      - backend_sqlite_data:/data   # SQLite 파일 영속화 (컨테이너 재생성해도 데이터 유지)
     networks:
       - default
       - chatwoot_default
-
-  backend-db:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: auth_user
-      POSTGRES_PASSWORD: auth_pass
-      POSTGRES_DB: auth_db
-    volumes:
-      - backend_db_data:/var/lib/postgresql/data
 
   webhook-bot:
     build: ./webhook-bot
@@ -48,7 +39,7 @@ services:
       - chatwoot_default
 
 volumes:
-  backend_db_data:
+  backend_sqlite_data:
 
 networks:
   chatwoot_default:

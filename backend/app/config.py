@@ -1,11 +1,14 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class Settings:
     # 팀 인증 서버 자체 DB (Chatwoot DB와는 완전 별도)
-    DATABASE_URL: str = os.getenv(
-        "DATABASE_URL", "postgresql://auth_user:auth_pass@auth-db:5432/auth_db"
-    )
+    # 파일 기반 SQLite - 별도 DB 컨테이너 불필요
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:////data/auth.db")
 
     # JWT
     JWT_SECRET: str = os.getenv("JWT_SECRET", "change-me-in-env")

@@ -1,4 +1,6 @@
 # Chatwoot 자체는 이 compose에 포함하지 않는다 (별도 fork 레포에서 별도로 구동).
+# webhook-bot 도 별도 레포에서 구동한다.
+#
 # 이 레포의 서비스들이 Chatwoot 컨테이너와 통신해야 하므로,
 # Chatwoot의 docker-compose가 만든 네트워크에 join 하거나
 # 아래 external network 설정을 Chatwoot 쪽 네트워크명에 맞게 바꿀 것.
@@ -28,15 +30,6 @@ services:
       - default
       - chatwoot_default
 
-  webhook-bot:
-    build: ./webhook-bot
-    ports:
-      - "8001:8001"
-    env_file:
-      - ./webhook-bot/.env
-    networks:
-      - default
-      - chatwoot_default
 
 volumes:
   backend_sqlite_data:

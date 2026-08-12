@@ -11,13 +11,6 @@ chatdesk/
 └── docker-compose.yml
 ```
 
-## 담당 매핑
-
-| 서비스       |  상세 문서                                     |
-| ----------- | -------------------------------------------- |
-| `frontend/` |     이 문서 하단 "브랜치 전략" 참고               |
-| `backend/`  | [`backend/README.md`](./backend/README.md)   |
-
 ## 처음 이 레포를 받았다면 (팀원 온보딩)
 
 ```bash
